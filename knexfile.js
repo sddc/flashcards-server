@@ -7,4 +7,9 @@ module.exports = {
     connection: 'postgres://sd:pw@localhost/flashcards'
   },
 
+  test: {
+    client: 'pg',
+    connection: 'postgres://sd:pw@localhost/flashcards_test'
+  },
+
 };
