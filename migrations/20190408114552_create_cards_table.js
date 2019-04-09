@@ -5,8 +5,8 @@ exports.up = function(knex, Promise) {
     table.text('front');
     table.text('back');
     table.integer('deck_id').unsigned().notNullable();
-    
-    table.foreign('deck_id').references('id').inTable('decks');
+
+    table.foreign('deck_id').references('id').inTable('decks').onDelete('CASCADE');
   });
 };
 
