@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const knex = require('../../db/knex');
+const { celebrate, Joi } = require('celebrate');
 
 // get all decks
 router.get('/', (req, res) => {
@@ -11,27 +12,55 @@ router.get('/', (req, res) => {
 });
 
 // create a deck
-router.post('/', (req, res) => {
+router.post('/', celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().trim().min(1).required(),
+    description: Joi.string().trim().min(1).required()
+  })
+}), (req, res) => {
   const {name, description} = req.body;
   knex('decks').insert({name, description}, '*')
   .then((deck) => {
-    res.json(deck);
+    res.json(deck[0]);
   });
 });
 
 // update a deck
-router.put('/:id', (req, res) => {
+router.put('/:id', celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().trim().min(1).required(),
+    description: Joi.string().trim().min(1).required()
+  }),
+  params: Joi.object().keys({
+    id: Joi.number().integer().positive().required()
+  })
+}), (req, res, next) => {
   const {name, description} = req.body;
   knex('decks').where('id', req.params.id).update({name, description})
-  .then((deck) => {
-    res.json(deck);
+  .then((row) => {
+    if(row) {
+      res.json({message: 'update successful'});
+    } else {
+      next();
+    }
   });
 });
 
 // delete a deck and associated cards via ON DELETE CASCADE
-router.delete('/:id', (req, res) => {
+router.delete('/:id', celebrate({
+  params: Joi.object().keys({
+    id: Joi.number().integer().positive().required()
+  })
+}), (req, res, next) => {
   knex('decks').where('id', req.params.id).del()
-  .then(() => res.sendStatus(200));
+  .then((row) => {
+    // check if deleted a row
+    if(row) {
+      res.json({message: 'delete successful'});
+    } else {
+      next();
+    }
+  });
 });
 
 module.exports = router;
