@@ -15,7 +15,6 @@ router.get('/:deck_id', celebrate({
     if(deck.length > 0) {
       knex('cards').where('deck_id', req.params.deck_id)
       .then((cards) => {
-        console.log(cards);
         res.json(cards);
       });
     } else {
@@ -37,8 +36,8 @@ router.post('/:deck_id', celebrate({
   const {front, back} = req.body;
   const {deck_id} = req.params;
   knex('cards').insert({front, back, deck_id}, '*')
-  .then((card) => {
-    res.json(card);
+  .then((cards) => {
+    res.json(cards[0]);
   })
   .catch(() => next());
 });

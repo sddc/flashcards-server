@@ -1,12 +1,12 @@
 {
   "name": "flashcards-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "rest api backend",
   "main": "server.js",
   "scripts": {
     "test": "mocha --exit"
   },
-  "author": "",
+  "author": "sean d",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",

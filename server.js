@@ -10,7 +10,7 @@ const app = express();
 const port = 5000;
 
 // middleware
-app.use(morgan('dev'));
+if(process.env.NODE_ENV !== 'test') app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 // api routes
