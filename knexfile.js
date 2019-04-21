@@ -12,4 +12,9 @@ module.exports = {
     connection: 'postgres://sd:pw@localhost/flashcards_test'
   },
 
+  production: {
+    client: 'pg',
+    connection: process.ENV.DATABASE_URL
+  },
+
 };
