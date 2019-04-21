@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require("body-parser");
 const { errors } = require('celebrate');
@@ -10,6 +11,7 @@ const app = express();
 const port = 5000;
 
 // middleware
+app.use(cors());
 if(process.env.NODE_ENV !== 'test') app.use(morgan('dev'));
 app.use(bodyParser.json());
 
