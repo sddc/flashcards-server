@@ -8,7 +8,7 @@ const decks = require('./routes/api/decks');
 const cards = require('./routes/api/cards');
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 // middleware
 app.use(cors());
