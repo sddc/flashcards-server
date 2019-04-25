@@ -46,7 +46,10 @@ router.post('/:deck_id', celebrate({
 router.put('/:id', celebrate({
   body: Joi.object().keys({
     front: Joi.string().trim().min(1).required(),
-    back: Joi.string().trim().min(1).required()
+    back: Joi.string().trim().min(1).required(),
+    easiness: Joi.number().min(1.3),
+    repetitions: Joi.number().integer().min(0),
+    next_review: Joi.date().iso()
   }),
   params: Joi.object().keys({
     id: Joi.number().integer().positive().required()

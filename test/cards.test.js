@@ -26,13 +26,8 @@ describe('cards route', () => {
         .expect('Content-Type', /json/)
         .expect(200)
         .then(response => {
-          expect(response.body).to.deep.equal([
-            {id: 1, front: 'H', back: 'Hydrogen', deck_id: 1},
-            {id: 2, front: 'Na', back: 'Sodium', deck_id: 1},
-            {id: 3, front: 'C', back: 'Carbon', deck_id: 1},
-            {id: 4, front: 'Ag', back: 'Silver', deck_id: 1},
-            {id: 5, front: 'Xe', back: 'Xenon', deck_id: 1}
-          ])
+          expect(response.body).to.be.an('array');
+          response.body.every(card => expect(card).to.have.all.keys('id', 'front', 'back', 'easiness', 'repetitions', 'next_review', 'deck_id'));
         });
     });
   });
@@ -57,12 +52,7 @@ describe('cards route', () => {
         .expect('Content-Type', /json/)
         .expect(200)
         .then(response => {
-          expect(response.body).to.deep.equal({
-            id: 11,
-            front: 'Be',
-            back: 'Beryllium',
-            deck_id: 1
-          })
+          expect(response.body).to.have.all.keys('id', 'front', 'back', 'easiness', 'repetitions', 'next_review', 'deck_id')
         });
     });
   });
