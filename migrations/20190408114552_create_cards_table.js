@@ -6,7 +6,8 @@ exports.up = function(knex, Promise) {
     table.text('back');
     table.float('easiness').defaultTo(2.5);
     table.integer('repetitions').unsigned().defaultTo(0);
-    table.timestamp('next_review').defaultTo(knex.fn.now());
+    table.integer('interval').unsigned().defaultTo(1);
+    table.date('next_review').defaultTo(knex.fn.now());
     table.integer('deck_id').unsigned().notNullable();
 
     table.foreign('deck_id').references('id').inTable('decks').onDelete('CASCADE');

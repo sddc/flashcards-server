@@ -45,18 +45,19 @@ router.post('/:deck_id', celebrate({
 // update a card
 router.put('/:id', celebrate({
   body: Joi.object().keys({
-    front: Joi.string().trim().min(1).required(),
-    back: Joi.string().trim().min(1).required(),
+    front: Joi.string().trim().min(1),
+    back: Joi.string().trim().min(1),
     easiness: Joi.number().min(1.3),
     repetitions: Joi.number().integer().min(0),
+    interval: Joi.number().integer().min(1),
     next_review: Joi.date().iso()
   }),
   params: Joi.object().keys({
     id: Joi.number().integer().positive().required()
   })
 }), (req, res, next) => {
-  const {front, back} = req.body;
-  knex('cards').where('id', req.params.id).update({front, back})
+  const {front, back, easiness, repetitions, interval, next_review} = req.body;
+  knex('cards').where('id', req.params.id).update({front, back, easiness, repetitions, interval, next_review})
   .then((row) => {
     if(row) {
       res.json({message: 'update successful'});

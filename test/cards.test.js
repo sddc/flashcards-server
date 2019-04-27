@@ -27,7 +27,7 @@ describe('cards route', () => {
         .expect(200)
         .then(response => {
           expect(response.body).to.be.an('array');
-          response.body.every(card => expect(card).to.have.all.keys('id', 'front', 'back', 'easiness', 'repetitions', 'next_review', 'deck_id'));
+          response.body.every(card => expect(card).to.have.all.keys('id', 'front', 'back', 'easiness', 'repetitions', 'interval', 'next_review', 'deck_id'));
         });
     });
   });
@@ -52,7 +52,7 @@ describe('cards route', () => {
         .expect('Content-Type', /json/)
         .expect(200)
         .then(response => {
-          expect(response.body).to.have.all.keys('id', 'front', 'back', 'easiness', 'repetitions', 'next_review', 'deck_id')
+          expect(response.body).to.have.all.keys('id', 'front', 'back', 'easiness', 'repetitions', 'interval', 'next_review', 'deck_id')
         });
     });
   });
